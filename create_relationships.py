@@ -1,14 +1,13 @@
-"""
+"""--------------------ι𝐍Ⓙย𝐬𝓣ᶤςⒺ Ⓐ𝐍ＹωᕼⒺг𝐄 ᶤ𝐬 ᵃ tｈяᗴＡт ⓉＯ 𝐣υ𝔰ｔ𝐢ᶜⓔ 𝐄V乇яｙ山卄εŘ乇 --------------------
 Description:
  Creates the relationships table in the Social Network database
  and populates it with 100 fake relationships.
 
 Usage:
  python create_relationships.py
-"""
+--------------------ι𝐍Ⓙย𝐬𝓣ᶤςⒺ Ⓐ𝐍ＹωᕼⒺг𝐄 ᶤ𝐬 ᵃ tｈяᗴＡт ⓉＯ 𝐣υ𝔰ｔ𝐢ᶜⓔ 𝐄V乇яｙ山卄εŘ乇 --------------------"""
 import os, sqlite3 
 from faker import Faker
-#from random import randint, choice
 import random
 
 # Determine the path of the database
@@ -20,8 +19,7 @@ def main():
 
 def create_relationships_table():
     """Creates the relationships table in the DB"""
-    # TODO: Function body
-    con = sqlite3.connect('social_network.db')
+    con = sqlite3.connect(db_path)
     cur = con.cursor()
     # SQL query that creates a table named 'relationships'.
     create_relationships_tbl_query = """
@@ -44,8 +42,7 @@ def create_relationships_table():
 
 def populate_relationships_table():
     """Adds 100 random relationships to the DB"""
-    # TODO: Function body
-    con = sqlite3.connect('social_network.db')
+    con = sqlite3.connect(db_path)
     cur = con.cursor()
     # SQL query that inserts a row of data in the relationships table.
     add_relationship_query = """
@@ -68,19 +65,15 @@ def populate_relationships_table():
         while person2_id == person1_id:
             person2_id = random.randint(1, 200)
         # Randomly select a relationship type
-   
         rel_type = random.choice(('friend', 'spouse', 'partner', 'relative'))
         # Randomly select a relationship start date between now and 50 years ago
         start_date = fake.date_between(start_date='-50y', end_date='today')
-        # for new_relationship in range(100):
         # Create tuple of data for the new relationship
         new_relationship = (person1_id, person2_id, rel_type, start_date)
         # Add the new relationship to the DB
         cur.execute(add_relationship_query, new_relationship)
         con.commit()
     con.close()
-
-    return 
 
 if __name__ == '__main__':
    main()
